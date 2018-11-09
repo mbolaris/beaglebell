@@ -1,0 +1,93 @@
+doctype html
+html(lang="en")
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='initial-scale=1.0, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    title Door Bell
+    //
+       jQuery and jQuery Mobile 
+    link(rel='stylesheet', href='http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css')
+    script(src='http://code.jquery.com/jquery-1.9.1.min.js')
+    script(src='http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='./javascripts/DoorBell.js')
+  body
+    //
+       Home 
+    #home(data-role='page')
+      div(data-theme='a', data-role='header')
+        h3 Door Bell
+        div(data-role='navbar')
+          ul
+            li
+              a.ui-btn-active.ui-state-persist(href='#', data-icon='home') Home
+            li
+              a(href='#log', data-icon='info') Log
+            li
+              a(href='#settings', data-icon='gear') Settings
+      div(data-role='content')
+        #ringCount Ring Count: #{ringCount}
+        button#doorBellButton(onclick='buttonPress();') Ring Bell
+        div(data-role='fieldcontain')
+          label(for='alarmMode') Alarm Mode
+          select#alarmMode(name='alarmMode', data-theme='b', data-role='slider', onchange='alarmModeSwitch(this);')
+            option(value='off' selected='#{currentAlarmMode}'=='off') Off
+            option(value='on' selected='#{currentAlarmMode}'=='on') On              
+        audio#bellSound
+          source(src='sounds/bell.wav', type='audio/wav', preload='auto', autobuffer='autobuffer')          
+        audio#switchSound
+          source(src='sounds/switch.wav', type='audio/wav', preload='auto', autobuffer='autobuffer')
+        audio#nextHolidaySound
+          source(src='#{nextHolidaySound}', type='audio/wav', preload='auto', autobuffer='autobuffer')                                                                
+    //
+       Log 
+    #log(data-role='page')
+      div(data-theme='a', data-role='header')
+        h3 Door Bell
+        div(data-role='navbar')
+          ul
+            li
+              a(href='#home', data-icon='home') Home
+            li
+              a.ui-btn-active.ui-state-persist(href='#', data-icon='info') Log
+            li
+              a(href='#settings', data-icon='gear') Settings
+      div(data-role='content')
+        #bellBlog
+          table#bellBlogTable()
+            tbody
+              each item in logging
+                tr
+                  td= item.timestamp        
+                  td= item.message 
+          
+    //
+       Settings 
+    #settings(data-role='page')
+      div(data-theme='a', data-role='header')
+        h3 Door Bell
+        div(data-role='navbar')
+          ul
+            li
+              a(href='#home', data-icon='home') Home
+            li
+              a(href='#log', data-icon='info') Log
+            li
+              a.ui-btn-active.ui-state-persist(href='#', data-icon='gear') Settings
+      div(data-role='content')
+        div(data-role='fieldcontain')
+          label(for='soundFx') Sound Effects
+          select#soundFx(name='soundFx', data-theme='b', data-role='slider', onchange='soundSwitch(this);')
+            option(value='off') Off
+            option(value='on') On
+        div(data-role='fieldcontain')
+          label(for='holidayMode') Holiday Mode
+          select#holidayMode(name='holidayMode', data-theme='b', data-role='slider', onchange='holidayModeSwitch(this);')
+            option(value='off' selected='#{currentHolidayMode}'=='off') Off
+            option(value='on' selected='#{currentHolidayMode}'=='on') On        
+        div(data-role='fieldcontain')
+          label(for='powerSlider') Power Level
+          input#powerSlider(type='range', name='powerSlider', value='#{powerLevel}', min='0', max='100', data-highlight='true', onchange='powerLevel(value);')
