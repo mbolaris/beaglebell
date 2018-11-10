@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
       powerLevel : bellSettings.powerLevel,
       currentAlarmMode : bellSettings.currentAlarmMode,
       currentHolidayMode : bellSettings.currentHolidayMode,
-      ringCount : bellHistory.ringCount,
+      ringCount : 0,
       nextHolidaySound : holidaySound.getNextSound()
     });	
 });
