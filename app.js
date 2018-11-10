@@ -39,3 +39,104 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+var server = http.createServer(app).listen(app.get('port'), function() {
+     console.log('BellBot server listening on port ' + app.get('port'));
+});
+
+
+var io = require('socket.io').listen(server);
+
+// socket.io options go here
+io.set('log level', 2); // reduce logging - set 1 for warn, 2 for info, 3 for
+// debug
+io.set('browser client minification', true); // send minified client
+io.set('browser client etag', true); // apply etag caching logic based on
+
+io.sockets.on('connection', function(socket) {
+
+     socket.on('ringBell', function(data) {
+          var endpoint = socket.manager.handshaken[socket.id].address;
+
+          if (bellController.bellRinging()) {
+               bellHistory.blog('ignoring press from ' + endpoint.address + 
+                         ' ring in progress.');
+          }
+          if (bellController.alarmRinging()) {
+               bellHistory.blog('ignoring press from ' + endpoint.address + 
+                         ' alarm in progress.');
+          } else {
+
+               bellHistory.ringCount++;
+
+
+               
+               io.sockets.emit("ringStart", bellHistory.ringCount);
+
+               bellController.startDoorBellPattern(function() {
+                    io.sockets.emit("ringDone");
+                    
+                    if (bellSettings.currentHolidayMode == 'on') {
+                         holidaySound.soundPlayed();
+
+                         bellHistory.blog('newHolidaySound='
+                                   + holidaySound.getNextSound());
+
+                         io.sockets.emit("newHolidaySound", holidaySound
+                                   .getNextSound());
+                    }
+               });
+
+             bellHistory.blog('press from ' + endpoint.address);
+               
+//               freegeoip.getLocation(endpoint.address, function(err, location) {
+//                    bellHistory.blog('press from ' + endpoint.address + ' in ' + 
+//                              location.city + ', ' + location.region_code);
+//               });
+          }
+     });
+
+     socket.on('alarmMode',
+               function(data) {
+
+                    if (bellSettings.currentAlarmMode != data) {
+
+                         bellSettings.currentAlarmMode = data;
+                         console.log('alarmMode set to ' + 
+                                   bellSettings.currentAlarmMode);
+
+                         console.log('emmiting alarmMode ' + 
+                                   bellSettings.currentAlarmMode);
+                         io.sockets.emit("alarmMode",
+                                   bellSettings.currentAlarmMode);
+                    }
+               });
+
+     socket.on('holidayMode', function(data) {
+
+          if (bellSettings.currentHolidayMode != data) {
+
+               bellSettings.currentHolidayMode = data;
+               console.log('holidayMode set to ' + 
+                         bellSettings.currentHolidayMode);
+
+               console.log('emmiting holidayMode ' + 
+                         bellSettings.currentHolidayMode);
+               io.sockets.emit("holidayMode", bellSettings.currentHolidayMode);
+          }
+     });
+
+     socket.on('powerLevel', function(data) {
+
+          if (bellSettings.powerLevel != data) {
+
+               bellSettings.powerLevel = data;
+               console.log('powerLevel set to ' + bellSettings.powerLevel);
+
+               console.log('emmiting powerLevel ' + bellSettings.powerLevel);
+               io.sockets.emit("powerLevel", bellSettings.powerLevel);
+          }
+     });
+});
+
+exports.io = io;
