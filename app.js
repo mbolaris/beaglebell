@@ -42,7 +42,7 @@ module.exports = app;
 
 var http = require('http');
 
-var server = http.createServer(app).listen(app.get('port'), function() {
+var server = http.createServer(app).listen(app.get('port'), function(err) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
 
@@ -70,8 +70,6 @@ io.sockets.on('connection', function(socket) {
           } else {
 
                bellHistory.ringCount++;
-
-
                
                io.sockets.emit("ringStart", bellHistory.ringCount);
 
@@ -100,7 +98,6 @@ io.sockets.on('connection', function(socket) {
 
      socket.on('alarmMode',
                function(data) {
-
                     if (bellSettings.currentAlarmMode != data) {
 
                          bellSettings.currentAlarmMode = data;
