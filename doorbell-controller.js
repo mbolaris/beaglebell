@@ -25,7 +25,7 @@ bonescript.pinMode(buttonPin, bonescript.INPUT);
 
 bonescript.attachInterrupt(buttonPin, true, bonescript.CHANGE, buttonInterruptCallback);
 
-function checkButton(x) {
+function checkButton(err, x) {
 
 	console.log('x.value = ' + x.value);
 	if (x.value == 1 && doorBellStep != -1) {
