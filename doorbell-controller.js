@@ -27,11 +27,11 @@ bonescript.attachInterrupt(buttonPin, true, bonescript.CHANGE, buttonInterruptCa
 
 function checkButton(err, value) {
 
-	console.log('x.value = ' + value);
-	if (x.value == 1 && doorBellStep != -1) {
+	console.log('value = ' + value);
+	if (value == 1 && doorBellStep != -1) {
 		console.log('ignoring physical button press doorBellStep is ' + doorBellStep);		
 	}
-	else if (x.value == 1) {	
+	else if (value == 1) {	
 		app.io.sockets.emit("ringStart", bellHistory.ringCount);
 		bellHistory.blog('press from front door');	
 		startDoorBellPattern(function() {app.io.sockets.emit("ringDone");});	
