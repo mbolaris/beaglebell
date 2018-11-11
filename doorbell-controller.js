@@ -27,7 +27,7 @@ bonescript.attachInterrupt(buttonPin, true, bonescript.CHANGE, buttonInterruptCa
 
 function checkButton(err, value) {
 
-	console.log('x.value = ' + x.value);
+	console.log('x.value = ' + value);
 	if (x.value == 1 && doorBellStep != -1) {
 		console.log('ignoring physical button press doorBellStep is ' + doorBellStep);		
 	}
