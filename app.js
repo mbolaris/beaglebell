@@ -42,7 +42,7 @@ module.exports = app;
 
 var http = require('http');
 
-var server = http.createServer(app).listen(app.get('port'), function(err) {
+var server = http.createServer(app).listen(app.get('port'), function(err, data) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
 
