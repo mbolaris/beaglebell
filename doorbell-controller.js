@@ -18,7 +18,7 @@ var alarmStep = -1;
 var alarmDoneCallback;
 
 // configure bell and button pins
-bonescript.pinMode(bellPin, bonescript.OUTPUT);
+bonescript.pinMode(bellPin, bonescript.ANALOG_OUTPUT);
 bonescript.analogWrite(bellPin, 0);
 bonescript.pinMode(buttonPin, bonescript.INPUT);
 bonescript.attachInterrupt(buttonPin, true, bonescript.CHANGE, buttonInterruptCallback);
