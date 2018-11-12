@@ -60,7 +60,7 @@ function startDoorBellPattern(callback) {
 
 function doDoorBellStep() {
 
-	b.getPinMode(bellPin, printPinMux);
+	bonescript.getPinMode(bellPin, printPinMux);
 	function printPinMux(x) {
 		console.log('mux = ' + x.mux);
 		console.log('pullup = ' + x.pullup);
