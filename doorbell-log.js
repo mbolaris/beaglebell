@@ -31,7 +31,6 @@ function blog(x) {
 }
 
 function getRecentLog(callback) {
-	
 	console.log("getRecentLog()");
 }
 

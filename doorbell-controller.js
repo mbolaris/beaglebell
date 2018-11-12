@@ -9,7 +9,7 @@ var holidaySound = require('./holiday_sound');
 var bellPin = "P8_13";
 var buttonPin = "P8_19";
 
-var doorBellPattern=[100, 100, 100];
+var doorBellPattern=[500, 100, 500];
 var doorBellStep = -1;
 var doorBellDoneCallback;
 
@@ -17,21 +17,17 @@ var alarmPattern=[50, 150, 50, 150, 50, 150, 50, 150, 50];
 var alarmStep = -1;
 var alarmDoneCallback;
 
-// configure pins and set all low
+// configure bell and button pins
 bonescript.pinMode(bellPin, bonescript.OUTPUT);
 bonescript.analogWrite(bellPin, 0);
-
 bonescript.pinMode(buttonPin, bonescript.INPUT);
-
 bonescript.attachInterrupt(buttonPin, true, bonescript.CHANGE, buttonInterruptCallback);
 
 function checkButton(err, value) {
-
 	console.log('value = ' + value);
 	if (value == 1 && doorBellStep != -1) {
 		console.log('ignoring physical button press doorBellStep is ' + doorBellStep);		
-	}
-	else if (value == 1) {	
+	} else if (value == 1) {	
 		app.io.sockets.emit("ringStart", bellHistory.ringCount);
 		bellHistory.blog('press from front door');	
 		startDoorBellPattern(function() {app.io.sockets.emit("ringDone");});	
@@ -63,20 +59,14 @@ function startDoorBellPattern(callback) {
 }
 
 function doDoorBellStep() {
-	
 	if (doorBellStep == -1) {
 		console.log('doDoorBellStep() called with -1');
-
 	} else if (doorBellStep < doorBellPattern.length) {
-
 		console.log('step ' + doorBellStep + ' ' + 
 				((doorBellStep + 1) % 2) * bellSettings.powerLevel / 100 + ' for ' + 
 				doorBellPattern[doorBellStep]);
-
 		bonescript.analogWrite(bellPin, ((doorBellStep + 1) % 2) * bellSettings.powerLevel / 100);
-		
 		setTimeout(doDoorBellStep, doorBellPattern[doorBellStep]);
-		
 		doorBellStep++;
 		console.log('step is now ' + doorBellStep);	
 	} else {
@@ -87,7 +77,6 @@ function doDoorBellStep() {
 }
 
 function doAlarmStep() {
-	
 	if (alarmStep == -1) {
 		console.log('doAlarmStep() called with -1');
 
