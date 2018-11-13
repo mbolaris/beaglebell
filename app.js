@@ -6,11 +6,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var bellSettings = require('./doorbell-settings');
 
 var app = express();
 
-var port = normalizePort(process.env.PORT || '8888');
-app.set('port', port);
+app.set('port', bellSettings.port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
