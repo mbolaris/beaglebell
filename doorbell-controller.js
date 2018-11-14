@@ -19,7 +19,7 @@ var alarmDoneCallback;
 
 // configure bell and button pins
 bonescript.pinMode(bellPin, bonescript.ANALOG_OUTPUT);
-bonescript.analogWrite(bellPin, 0);
+bonescript.analogWrite(bellPin, 0.01);
 bonescript.pinMode(buttonPin, bonescript.INPUT);
 bonescript.attachInterrupt(buttonPin, true, bonescript.CHANGE, buttonInterruptCallback);
 
@@ -70,7 +70,7 @@ function doDoorBellStep() {
 		doorBellStep++;
 		console.log('step is now ' + doorBellStep);	
 	} else {
-		bonescript.analogWrite(bellPin, 0);
+		bonescript.analogWrite(bellPin, 0.01);
 		doorBellStep = -1;
 		doorBellDoneCallback();
 	}
