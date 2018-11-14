@@ -9,7 +9,7 @@ var holidaySound = require('./holiday_sound');
 var bellPin = "P8_13";
 var buttonPin = "P8_19";
 
-var doorBellPattern=[500,200,500];
+var doorBellPattern=[300,150,300];
 var doorBellStep = -1;
 var doorBellDoneCallback;
 
