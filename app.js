@@ -10,7 +10,7 @@ var bellSettings = require('./doorbell-settings');
 
 var app = express();
 
-app.set('port', bellSettings.port);
+//app.set('port', bellSettings.port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
