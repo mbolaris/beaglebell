@@ -9,7 +9,7 @@ var holidaySound = require('./holiday_sound');
 var bellPin = "P8_13";
 var buttonPin = "P8_19";
 
-var doorBellPattern=[200,100,200];
+var doorBellPattern=[1000,500,1000];
 var doorBellStep = -1;
 var doorBellDoneCallback;
 
@@ -67,11 +67,11 @@ function doDoorBellStep() {
 				doorBellPattern[doorBellStep]);
 				
 		if ((doorBellStep + 1) % 2) {
-			bonescript.analogWrite(bellPin, bellSettings.powerLevel / 100);
+			bonescript.analogWrite(bellPin, 1.0, 2000);
 		} else {
 			bonescript.analogWrite(bellPin, 0.01);
 		}
-		
+
 		setTimeout(doDoorBellStep, doorBellPattern[doorBellStep]);
 		doorBellStep++;
 		console.log('step is now ' + doorBellStep);	
