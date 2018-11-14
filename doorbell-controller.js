@@ -65,7 +65,13 @@ function doDoorBellStep() {
 		console.log('step ' + doorBellStep + ' ' + 
 				((doorBellStep + 1) % 2) * bellSettings.powerLevel / 100 + ' for ' + 
 				doorBellPattern[doorBellStep]);
-		bonescript.analogWrite(bellPin, ((doorBellStep + 1) % 2) * bellSettings.powerLevel / 100);
+				
+		if ((doorBellStep + 1) % 2) {
+			bonescript.analogWrite(bellPin, bellSettings.powerLevel / 100);
+		} else {
+			bonescript.analogWrite(bellPin, 0.01);
+		}
+		
 		setTimeout(doDoorBellStep, doorBellPattern[doorBellStep]);
 		doorBellStep++;
 		console.log('step is now ' + doorBellStep);	
