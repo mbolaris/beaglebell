@@ -75,14 +75,10 @@ io.sockets.on('connection', function(socket) {
                bellHistory.blog('ignoring press from ' + endpoint.address + 
                          ' alarm in progress.');
           } else {
-
                bellHistory.ringCount++;
-               
                io.sockets.emit("ringStart", bellHistory.ringCount);
-
                bellController.startDoorBellPattern(function() {
                     io.sockets.emit("ringDone");
-                    
                     if (bellSettings.currentHolidayMode == 'on') {
                          holidaySound.soundPlayed();
 
