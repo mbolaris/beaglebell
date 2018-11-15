@@ -1,22 +1,17 @@
 var app = require('./app');
 var winston = require('winston');
-var dateformat = require('dateformat');
+//var dateformat = require('dateformat');
 
-function timestamp() {
-	return dateformat(new Date(), "mm/dd/yy HH:MM:ss");
-}
+//function timestamp() {
+//	return dateformat(new Date(), "mm/dd/yy HH:MM:ss");
+//}
 
-var fs = require('fs');
-
-if (!fs.existsSync('./doorbell.log')) {
+//var fs = require('fs');
+//if (!fs.existsSync('./doorbell.log')) {
     // Do something
-	console.log("creating ./doorbell.log");
-	fs.writeFile('./doorbell.log');
-}
-
-//winston.remove(winston.transports.Console);
-//winston.add(winston.transports.Console, { filename: './doorbell.log', 'timestamp': timestamp });
-//winston.add(winston.transports.File, { filename: './doorbell.log', 'timestamp': timestamp });
+//	console.log("creating ./doorbell.log");
+//	fs.writeFile('./doorbell.log');
+//}
 
 winston.stream({ start: -1 }).on('log', function(log) {
     app.io.sockets.emit("bellBlogUpdate", log);
@@ -26,8 +21,18 @@ winston.stream({ start: -1 }).on('log', function(log) {
 
 const logger = winston.createLogger({
   transports: [
-    new winston.transports.Console({timestamp: true}),
-    new winston.transports.File({filename: './doorbell.log', timestamp: true})
+    new winston.transports.Console({format: winston.format.combine(
+        winston.format.timestamp({
+          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+        }),
+        winston.format.json()
+      )}),
+    new winston.transports.File({filename: './doorbell.log', format: winston.format.combine(
+        winston.format.timestamp({
+          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+        }),
+        winston.format.json()
+      )})
   ]
 });
 
