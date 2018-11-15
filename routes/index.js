@@ -11,12 +11,15 @@ router.get('/', function(req, res, next) {
 	console.log('powerLevel = ' + bellSettings.powerLevel);
 	console.log('currentAlarmMode = ' + bellSettings.currentAlarmMode);	
      
+    var log;
+
     res.render('doorbell', {
       powerLevel : bellSettings.powerLevel,
       currentAlarmMode : bellSettings.currentAlarmMode,
       currentHolidayMode : bellSettings.currentHolidayMode,
       ringCount : 0,
-      nextHolidaySound : holidaySound.getNextSound()
+      nextHolidaySound : holidaySound.getNextSound(),
+      logging : log
     });	
 });
 

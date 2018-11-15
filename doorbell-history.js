@@ -15,7 +15,6 @@ if (!fs.existsSync('./doorbell.log')) {
 }
 
 winston.remove(winston.transports.Console);
-
 winston.add(winston.transports.Console, { filename: './doorbell.log', 'timestamp': timestamp });
 winston.add(winston.transports.File, { filename: './doorbell.log', 'timestamp': timestamp });
 
@@ -57,7 +56,6 @@ function getRecentLog(callback) {
 		callback(recentLogCache);
 	} 
 	else {
-		
 		console.log("getting new log");
 		winston.query(options, function(err, results) {
 			if (err) {
