@@ -2,7 +2,7 @@
 //var bonescript = require('octalbonescript');
 var bonescript = require('bonescript');
 var bellSettings = require('./doorbell-settings');
-var bellHistory = require('./doorbell-log');
+var bellHistory = require('./doorbell-history');
 var app = require('./app');
 var holidaySound = require('./holiday_sound');
 

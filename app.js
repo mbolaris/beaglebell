@@ -9,7 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
 var bellController = require('./doorbell-controller');
-var bellHistory = require('./doorbell-log');
+var bellHistory = require('./doorbell-history');
 
 var express = require('express');
 var app = express();

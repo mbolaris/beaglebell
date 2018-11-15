@@ -1,7 +1,7 @@
 var bellcontroller = require('../doorbell-controller');
 var bellSettings = require('../doorbell-settings');
 var holidaySound = require('../holiday_sound');
-var bellHistory = require('../doorbell-log');
+var bellHistory = require('../doorbell-history');
 
 
 var express = require('express');
