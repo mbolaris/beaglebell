@@ -14,14 +14,22 @@ if (!fs.existsSync('./doorbell.log')) {
 	fs.writeFile('./doorbell.log');
 }
 
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, { filename: './doorbell.log', 'timestamp': timestamp });
-winston.add(winston.transports.File, { filename: './doorbell.log', 'timestamp': timestamp });
+//winston.remove(winston.transports.Console);
+//winston.add(winston.transports.Console, { filename: './doorbell.log', 'timestamp': timestamp });
+//winston.add(winston.transports.File, { filename: './doorbell.log', 'timestamp': timestamp });
 
 winston.stream({ start: -1 }).on('log', function(log) {
     app.io.sockets.emit("bellBlogUpdate", log);
 //    recentLogCache.file.unshift(log);
   });
+
+
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
 
 var ringCount = 0;
 var recentLogCache;
@@ -45,7 +53,7 @@ refreshLogging();
 var timer = setInterval(refreshLogging, 10 * 60 * 1000);
 
 function blog(x) {
-	winston.info(x);
+	logger.info(x);
 }
 
 function getRecentLog(callback) {
@@ -58,7 +66,7 @@ function getRecentLog(callback) {
 	} 
 	else {
 		console.log("getting new log");
-		winston.query(options, function(err, results) {
+		logger.query(options, function(err, results) {
 			if (err) {
 				throw err;
 			}
