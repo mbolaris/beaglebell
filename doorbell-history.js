@@ -13,28 +13,28 @@ var winston = require('winston');
 //	fs.writeFile('./doorbell.log');
 //}
 
-winston.stream({ start: -1 }).on('log', function(log) {
-    app.io.sockets.emit("bellBlogUpdate", log);
-//    recentLogCache.file.unshift(log);
-  });
-
 
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({format: winston.format.combine(
         winston.format.timestamp({
-          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+          format: 'mm/dd/yy HH:MM:ss'
         }),
         winston.format.json()
       )}),
     new winston.transports.File({filename: './doorbell.log', format: winston.format.combine(
         winston.format.timestamp({
-          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+          format: 'mm/dd/yy HH:MM:ss'
         }),
         winston.format.json()
       )})
   ]
 });
+
+logger.stream({ start: -1 }).on('log', function(log) {
+    app.io.sockets.emit("bellBlogUpdate", log);
+    recentLogCache.file.unshift(log);
+  });
 
 var ringCount = 0;
 var recentLogCache;
@@ -65,8 +65,6 @@ function getRecentLog(callback) {
 	
 	console.log("getRecentLog()");
 	
-	recentLogCache = undefined;
-
 	if (recentLogCache !== undefined) {
 		console.log("using log cache");
 		callback(recentLogCache);
