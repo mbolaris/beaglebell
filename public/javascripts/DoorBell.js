@@ -123,8 +123,6 @@
 				table.deleteRow(-1);
 			}
 		});
-
-		
 		
 		bellSound = document.getElementById("bellSound");
 		nextHolidaySound = document.getElementById("nextHolidaySound");
