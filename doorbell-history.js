@@ -2,6 +2,24 @@ var app = require('./app');
 var winston = require('winston');
 var dateformat = require('dateformat');
 
+
+function clone(obj) {
+    var copy = Array.isArray(obj) ? [] : {};
+    for (var i in obj) {
+        if (Array.isArray(obj[i])) {
+            copy[i] = obj[i].slice(0);
+        } else if (obj[i] instanceof Buffer) {
+            copy[i] = obj[i].slice(0);
+        } else if (typeof obj[i] != 'function') {
+            copy[i] = obj[i] instanceof Object ? clone(obj[i]) : obj[i];
+        } else if (typeof obj[i] === 'function') {
+            copy[i] = obj[i];
+        }
+    }
+    return copy;
+}
+require("winston/lib/winston/common").clone = clone;
+
 function timestamp() {
 	return dateformat(new Date(), "mm/dd/yy HH:MM:ss");
 }
