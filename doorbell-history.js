@@ -18,13 +18,13 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({format: winston.format.combine(
         winston.format.timestamp({
-          format: 'mm/dd/yy HH:MM:ss'
+          format: 'MM-DD-YYYY hh:mm:ss'
         }),
         winston.format.json()
       )}),
     new winston.transports.File({filename: './doorbell.log', format: winston.format.combine(
         winston.format.timestamp({
-          format: 'mm/dd/yy HH:MM:ss'
+          format: 'MM-DD-YYYY hh:mm:ss'
         }),
         winston.format.json()
       )})
