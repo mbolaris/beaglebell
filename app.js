@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('./winston-workaround');
 
 var createError = require('http-errors');
 var path = require('path');
