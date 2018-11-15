@@ -35,8 +35,10 @@ var ringCount = 0;
 var recentLogCache;
 
 logger.stream({ start: -1 }).on('log', function(log) {
-    app.io.sockets.emit("bellBlogUpdate", log);
-    recentLogCache.file.unshift(log);
+	app.io.sockets.emit("bellBlogUpdate", log);
+	if (recentLogCache !== undefined) {
+		recentLogCache.file.unshift(log);
+	}
   });
 
 const options = {
