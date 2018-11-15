@@ -26,8 +26,18 @@ winston.stream({ start: -1 }).on('log', function(log) {
 
 const logger = winston.createLogger({
   transports: [
-    new winston.transports.Console({timestamp: true}),
-    new winston.transports.File({filename: './doorbell.log', timestamp: true})
+    new winston.transports.Console({format: winston.format.combine(
+        winston.format.timestamp({
+          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+        }),
+        winston.format.json()
+      )}),
+    new winston.transports.File({filename: './doorbell.log', format: winston.format.combine(
+        winston.format.timestamp({
+          format: 'YYYY-MM-DD hh:mm:ss A ZZ'
+        }),
+        winston.format.json()
+      )})
   ]
 });
 
