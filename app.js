@@ -8,8 +8,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
-var express = require('express');
+var bellController = require('./doorbell-controller');
 
+var express = require('express');
 var app = express();
 
 app.set('port', bellSettings.port);
@@ -63,8 +64,6 @@ io.sockets.on('connection', function(socket) {
      console.log('a user connected');
 
      socket.on('ringBell', function(data) {
-
-          var bellcontroller = require('./doorbell-controller');
           var endpoint = socket.manager.handshaken[socket.id].address;
 
           if (bellController.bellRinging()) {
