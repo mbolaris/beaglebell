@@ -31,13 +31,13 @@ const logger = winston.createLogger({
   ]
 });
 
+var ringCount = 0;
+var recentLogCache;
+
 logger.stream({ start: -1 }).on('log', function(log) {
     app.io.sockets.emit("bellBlogUpdate", log);
     recentLogCache.file.unshift(log);
   });
-
-var ringCount = 0;
-var recentLogCache;
 
 const options = {
 		from : new Date() - 24 * 60 * 60 * 1000,
