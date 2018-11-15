@@ -65,6 +65,8 @@ function getRecentLog(callback) {
 	
 	console.log("getRecentLog()");
 	
+	recentLogCache = undefined;
+
 	if (recentLogCache !== undefined) {
 		console.log("using log cache");
 		callback(recentLogCache);
