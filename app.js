@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var createError = require('http-errors');
-var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -10,7 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
 
-var app = express();
+var app = require('express');
 
 app.set('port', bellSettings.port);
 
@@ -47,12 +46,13 @@ module.exports = app;
 
 var http = require('http');
 
-var server = http.createServer(app).listen(app.get('port'), function(err, data) {
+var server = http.createServer(app);
+
+server.listen(app.get('port'), function(err, data) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
 
-
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
 
 // socket.io options go here
 io.set('log level', 3); // reduce logging - set 1 for warn, 2 for info, 3 for
