@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
 var bellController = require('./doorbell-controller');
 var bellHistory = require('./doorbell-history');
+var holidaySound = require('./holiday_sound');
 
 var express = require('express');
 var app = express();
