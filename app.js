@@ -56,7 +56,7 @@ server.listen(app.get('port'), function(err, data) {
 var io = require('socket.io').listen(server);
 
 // socket.io options go here
-io.set('log level', 3); // reduce logging - set 1 for warn, 2 for info, 3 for
+io.set('log level', 2); // reduce logging - set 1 for warn, 2 for info, 3 for
 // debug
 io.set('browser client minification', true); // send minified client
 io.set('browser client etag', true); // apply etag caching logic based on
