@@ -12,14 +12,14 @@ router.get('/', function(req, res, next) {
 
 	console.log('powerLevel = ' + bellSettings.powerLevel);
 	console.log('currentAlarmMode = ' + bellSettings.currentAlarmMode);	
-     
-    var log = [];
 
 	//
 	// Find items logged between today and yesterday.
 	//
 	bellHistory.getRecentLog(function(results) {
-	     
+       
+      console.log(results);
+
       res.render('doorbell', {
 			powerLevel : bellSettings.powerLevel,
 			currentAlarmMode : bellSettings.currentAlarmMode,
