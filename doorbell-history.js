@@ -26,8 +26,8 @@ winston.stream({ start: -1 }).on('log', function(log) {
 
 const logger = winston.createLogger({
   transports: [
-    new winston.transports.Console({'timestamp': timestamp}),
-    new winston.transports.File({filename: './doorbell.log', 'timestamp': timestamp})
+    new winston.transports.Console({timestamp: true}),
+    new winston.transports.File({filename: './doorbell.log', timestamp: true})
   ]
 });
 
