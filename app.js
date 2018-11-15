@@ -8,6 +8,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
+var bellcontroller = require('../doorbell-controller');
+
 
 var express = require('express');
 var app = express();
