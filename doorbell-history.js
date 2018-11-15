@@ -31,6 +31,7 @@ var options = {
 		until : new Date()
 	};
 
+	
 function refreshLogging() {
 	getRecentLog(function(results) {
 
