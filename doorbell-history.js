@@ -34,7 +34,7 @@ const logger = winston.createLogger({
 var ringCount = 0;
 var recentLogCache;
 
-var options = {
+const options = {
 		from : new Date() - 24 * 60 * 60 * 1000,
 		until : new Date()
 	};
@@ -70,6 +70,8 @@ function getRecentLog(callback) {
 			if (err) {
 				throw err;
 			}
+			console.log(results);
+
 			recentLogCache = results;		
 			callback(recentLogCache);
 		});
