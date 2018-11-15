@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 	console.log('powerLevel = ' + bellSettings.powerLevel);
 	console.log('currentAlarmMode = ' + bellSettings.currentAlarmMode);	
      
-    var log;
+    var log = [];
 
     res.render('doorbell', {
       powerLevel : bellSettings.powerLevel,
