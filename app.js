@@ -50,7 +50,7 @@ server.listen(app.get('port'), function(err, data) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
 
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 
 // socket.io options go here
 io.set('log level', 3); // reduce logging - set 1 for warn, 2 for info, 3 for
