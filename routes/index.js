@@ -1,6 +1,8 @@
 var bellcontroller = require('../doorbell-controller');
 var bellSettings = require('../doorbell-settings');
 var holidaySound = require('../holiday_sound');
+var bellHistory = require('../doorbell-log');
+
 
 var express = require('express');
 var router = express.Router();
@@ -13,14 +15,20 @@ router.get('/', function(req, res, next) {
      
     var log = [];
 
-    res.render('doorbell', {
-      powerLevel : bellSettings.powerLevel,
-      currentAlarmMode : bellSettings.currentAlarmMode,
-      currentHolidayMode : bellSettings.currentHolidayMode,
-      ringCount : 0,
-      nextHolidaySound : holidaySound.getNextSound(),
-      logging : log
-    });	
+	//
+	// Find items logged between today and yesterday.
+	//
+	bellHistory.getRecentLog(function(results) {
+	     
+      res.render('doorbell', {
+			powerLevel : bellSettings.powerLevel,
+			currentAlarmMode : bellSettings.currentAlarmMode,
+			currentHolidayMode : bellSettings.currentHolidayMode,
+			ringCount : bellHistory.ringCount,
+			logging : results.file,
+			nextHolidaySound : holidaySound.getNextSound()
+		});	
+	});
 });
 
 module.exports = router;
