@@ -31,7 +31,7 @@ function blog(x) {
 }
 
 function getRecentLog(callback) {
-	console.log("getRecentLog()");
+	console.log("xx getRecentLog()");
 }
 
 exports.blog = blog;
