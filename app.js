@@ -9,7 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
 
-var app = require('express');
+var express = require('express');
+var app = express();
 
 app.set('port', bellSettings.port);
 
@@ -44,8 +45,7 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-var http = require('http');
-var server = http.createServer(app);
+var server = require('http').createServer(app);
 server.listen(app.get('port'), function(err, data) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
