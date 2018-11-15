@@ -27,7 +27,7 @@ winston.stream({ start: -1 }).on('log', function(log) {
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: 'combined.log' })
+    new winston.transports.File({ filename: './doorbell.log' })
   ]
 });
 
