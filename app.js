@@ -45,9 +45,7 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 var http = require('http');
-
 var server = http.createServer(app);
-
 server.listen(app.get('port'), function(err, data) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
@@ -61,6 +59,8 @@ io.set('browser client minification', true); // send minified client
 io.set('browser client etag', true); // apply etag caching logic based on
 
 io.sockets.on('connection', function(socket) {
+
+     console.log('a user connected');
 
      socket.on('ringBell', function(data) {
           var endpoint = socket.manager.handshaken[socket.id].address;
