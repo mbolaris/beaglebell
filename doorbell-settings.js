@@ -1,4 +1,4 @@
-var defaultPowerLevel = 100;
+var defaultPowerLevel = 75;
 var defaultAlarmMode = "off";
 var defaultHolidayMode = "off";
 var port = 8888;
