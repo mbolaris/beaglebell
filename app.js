@@ -92,6 +92,8 @@ io.sockets.on('connection', function(socket) {
                     }
                });
 
+             console.log(socket);
+               
              bellHistory.blog('press from ' + socket.handshake.address.address);
                
 //               freegeoip.getLocation(endpoint.address, function(err, location) {
