@@ -69,11 +69,11 @@ io.sockets.on('connection', function(socket) {
      socket.on('ringBell', function(data) {
 
           if (bellController.bellRinging()) {
-               bellHistory.blog('ignoring press from ' + 'The Internet' + 
+               bellHistory.blog('ignoring press from ' + 'the Internet' + 
                          ' ring in progress.');
           }
           if (bellController.alarmRinging()) {
-               bellHistory.blog('ignoring press from ' + 'The Internet' + 
+               bellHistory.blog('ignoring press from ' + 'the Internet' + 
                          ' alarm in progress.');
           } else {
                bellHistory.ringCount++;
@@ -82,18 +82,15 @@ io.sockets.on('connection', function(socket) {
                     io.sockets.emit("ringDone");
                     if (bellSettings.currentHolidayMode == 'on') {
                          holidaySound.soundPlayed();
-
-                         bellHistory.blog('newHolidaySound='
+                         console.log('newHolidaySound='
                                    + holidaySound.getNextSound());
-
                          io.sockets.emit("newHolidaySound", holidaySound
                                    .getNextSound());
                     }
                });
-
              console.log(socket);
                
-             bellHistory.blog('press from ' + 'The Internet');
+             bellHistory.blog('press from ' + 'the Internet');
                
 //               freegeoip.getLocation(endpoint.address, function(err, location) {
 //                    bellHistory.blog('press from ' + endpoint.address + ' in ' + 
@@ -105,7 +102,6 @@ io.sockets.on('connection', function(socket) {
      socket.on('alarmMode',
                function(data) {
                     if (bellSettings.currentAlarmMode != data) {
-
                          bellSettings.currentAlarmMode = data;
                          console.log('alarmMode set to ' + 
                                    bellSettings.currentAlarmMode);
@@ -118,9 +114,7 @@ io.sockets.on('connection', function(socket) {
                });
 
      socket.on('holidayMode', function(data) {
-
           if (bellSettings.currentHolidayMode != data) {
-
                bellSettings.currentHolidayMode = data;
                console.log('holidayMode set to ' + 
                          bellSettings.currentHolidayMode);
@@ -132,9 +126,7 @@ io.sockets.on('connection', function(socket) {
      });
 
      socket.on('powerLevel', function(data) {
-
           if (bellSettings.powerLevel != data) {
-
                bellSettings.powerLevel = data;
                console.log('powerLevel set to ' + bellSettings.powerLevel);
 
