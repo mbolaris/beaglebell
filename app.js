@@ -67,14 +67,13 @@ io.sockets.on('connection', function(socket) {
      console.log('a user connected');
 
      socket.on('ringBell', function(data) {
-          var endpoint = socket.manager.handshaken[socket.id].address;
 
           if (bellController.bellRinging()) {
-               bellHistory.blog('ignoring press from ' + endpoint.address + 
+               bellHistory.blog('ignoring press from ' + 'The Internet' + 
                          ' ring in progress.');
           }
           if (bellController.alarmRinging()) {
-               bellHistory.blog('ignoring press from ' + endpoint.address + 
+               bellHistory.blog('ignoring press from ' + 'The Internet' + 
                          ' alarm in progress.');
           } else {
                bellHistory.ringCount++;
@@ -94,7 +93,7 @@ io.sockets.on('connection', function(socket) {
 
              console.log(socket);
                
-             bellHistory.blog('press from ' + socket.handshake.address.address);
+             bellHistory.blog('press from ' + 'The Internet');
                
 //               freegeoip.getLocation(endpoint.address, function(err, location) {
 //                    bellHistory.blog('press from ' + endpoint.address + ' in ' + 
