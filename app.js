@@ -92,7 +92,7 @@ io.sockets.on('connection', function(socket) {
                     }
                });
 
-             bellHistory.blog('press from ' + socket.request.connection.remoteAddress);
+             bellHistory.blog('press from ' + socket.handshake.address.address);
                
 //               freegeoip.getLocation(endpoint.address, function(err, location) {
 //                    bellHistory.blog('press from ' + endpoint.address + ' in ' + 
