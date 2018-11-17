@@ -5,8 +5,8 @@ var createError = require('http-errors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/motion');
 var usersRouter = require('./routes/users');
 var bellSettings = require('./doorbell-settings');
 var bellController = require('./doorbell-controller');
@@ -17,19 +17,17 @@ var express = require('express');
 var app = express();
 
 app.set('port', bellSettings.port);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/A1-ON', motionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,11 +61,8 @@ io.set('browser client minification', true); // send minified client
 io.set('browser client etag', true); // apply etag caching logic based on
 
 io.sockets.on('connection', function(socket) {
-
      console.log('a user connected');
-
      socket.on('ringBell', function(data) {
-
           if (bellController.bellRinging()) {
                bellHistory.blog('ignoring press from ' + 'the Internet' + 
                          ' ring in progress.');
@@ -88,8 +83,7 @@ io.sockets.on('connection', function(socket) {
                                    .getNextSound());
                     }
                });
-             console.log(socket);
-               
+             console.log(socket);             
              bellHistory.blog('press from ' + 'the Internet');
                
 //               freegeoip.getLocation(endpoint.address, function(err, location) {
@@ -105,14 +99,12 @@ io.sockets.on('connection', function(socket) {
                          bellSettings.currentAlarmMode = data;
                          console.log('alarmMode set to ' + 
                                    bellSettings.currentAlarmMode);
-
                          console.log('emmiting alarmMode ' + 
                                    bellSettings.currentAlarmMode);
                          io.sockets.emit("alarmMode",
                                    bellSettings.currentAlarmMode);
                     }
                });
-
      socket.on('holidayMode', function(data) {
           if (bellSettings.currentHolidayMode != data) {
                bellSettings.currentHolidayMode = data;
@@ -129,7 +121,6 @@ io.sockets.on('connection', function(socket) {
           if (bellSettings.powerLevel != data) {
                bellSettings.powerLevel = data;
                console.log('powerLevel set to ' + bellSettings.powerLevel);
-
                console.log('emmiting powerLevel ' + bellSettings.powerLevel);
                io.sockets.emit("powerLevel", bellSettings.powerLevel);
           }
