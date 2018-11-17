@@ -1,4 +1,7 @@
 var router = require('express').Router();
+var bellcontroller = require('../doorbell-controller');
+var bellSettings = require('../doorbell-settings');
+var bellHistory = require('../doorbell-history');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
