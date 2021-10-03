@@ -6,13 +6,15 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
-    "dateformat": "~3.0.3",
-    "debug": "~4.1.0",
-    "express": "~4.16.0",
-    "http-errors": "~1.7.1",
-    "morgan": "~1.9.0",
-    "pug": "2.0.3",
-    "socket.io": "^2.1.1"
+    "bonescript": "^0.7.4-beta1",
+    "cookie-parser": "~1.4.5",
+    "dateformat": "~5.0.1",
+    "debug": "~4.3.2",
+    "express": "~4.17.1",
+    "http-errors": "~1.8.0",
+    "morgan": "~1.10.0",
+    "pug": "3.0.2",
+    "serialport": "^9.2.4",
+    "socket.io": "^4.2.0"
   }
 }

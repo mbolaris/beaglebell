@@ -14,32 +14,32 @@ var winston = require('winston');
 //}
 
 
-const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console({format: winston.format.combine(
-        winston.format.timestamp({
-          format: 'MM-DD-YYYY hh:mm:ss'
-        }),
-        winston.format.json()
-      )}),
-    new winston.transports.File({filename: './doorbell.log', format: winston.format.combine(
-        winston.format.timestamp({
-          format: 'MM-DD-YYYY hh:mm:ss'
-        }),
-        winston.format.json()
-      )})
-  ]
-});
+//const logger = winston.createLogger({
+//  transports: [
+//    new winston.transports.Console({ format: winston.format.combine(
+//        winston.format.timestamp({
+//          format: 'MM-DD-YYYY hh:mm:ss'
+//        }),
+//        winston.format.json()
+ //     )}),
+//    new winston.transports.File({filename: '/var/log/doorbell.log', format: winston.format.combine(
+//        winston.format.timestamp({
+//          format: 'MM-DD-YYYY hh:mm:ss'
+//        }),
+//        winston.format.json()
+//      )})
+//  ]
+//});
 
 var ringCount = 0;
 var recentLogCache;
 
-logger.stream({ start: -1 }).on('log', function(log) {
-	app.io.sockets.emit("bellBlogUpdate", log);
-	if (recentLogCache !== undefined) {
-		recentLogCache.file.unshift(log);
-	}
-  });
+//logger.stream({ start: -1 }).on('log', function(log) {
+//	app.io.sockets.emit("bellBlogUpdate", log);
+//	if (recentLogCache !== undefined) {
+//		recentLogCache.file.unshift(log);
+//	}
+//  });
 
 const options = {
 		from : new Date() - 24 * 60 * 60 * 1000,
@@ -60,7 +60,7 @@ refreshLogging();
 var timer = setInterval(refreshLogging, 10 * 60 * 1000);
 
 function blog(x) {
-	logger.info(x);
+//	logger.info(x);
 }
 
 function getRecentLog(callback) {
@@ -73,15 +73,15 @@ function getRecentLog(callback) {
 	} 
 	else {
 		console.log("getting new log");
-		logger.query(options, function(err, results) {
-			if (err) {
-				throw err;
-			}
-			console.log(results);
-
-			recentLogCache = results;		
-			callback(recentLogCache);
-		});
+//		logger.query(options, function(err, results) {
+//			if (err) {
+//				throw err;
+//			}
+//			console.log(results);
+//
+//			recentLogCache = results;		
+//			callback(recentLogCache);
+//		});
 	}
 }
 

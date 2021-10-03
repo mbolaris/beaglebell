@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require('./winston-workaround');
+//require('./winston-workaround');
 
 var createError = require('http-errors');
 var path = require('path');
@@ -52,13 +52,14 @@ server.listen(app.get('port'), function(err, data) {
      console.log('BellBot server listening on port ' + app.get('port'));
 });
 
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
+//server.listen(app.get('port'));
 
 // socket.io options go here
-io.set('log level', 2); // reduce logging - set 1 for warn, 2 for info, 3 for
+//io.set('log level', 2); // reduce logging - set 1 for warn, 2 for info, 3 for
 // debug
-io.set('browser client minification', true); // send minified client
-io.set('browser client etag', true); // apply etag caching logic based on
+//io.set('browser client minification', true); // send minified client
+//io.set('browser client etag', true); // apply etag caching logic based on
 
 io.sockets.on('connection', function(socket) {
      console.log('a user connected');
