@@ -1,0 +1,44 @@
+fix permissions to /dev/ttyUSB0
+
+copy /lib/udev/rules.d/50-udev-default.rules to /etc/udev/rules.d/50-udev-default.rules 
+
+and add:
+# relax the permissions just for ttyUSB0
+KERNEL=="ttyUSB0",              MODE="0666"
+
+
+
+install heyu:
+
+add heyu event triggers:
+
+add this to /etc/heyu/x10.conf:
+SCRIPT A1 on :: curl http://localhost:8888/A1-ON 
+START_ENGINE AUTO
+
+
+add heyu service:
+
+
+add doorbell service:
+
+create /lib/systemd/system/doorbell.service:
+#***************************************
+[Unit]
+Description=Door Bell
+
+[Service]
+Restart=always
+EnvironmentFile=-/etc/default/node
+ExecStart=/usr/bin/node  /home/mbolaris/home-automation/bellbot/app.js
+
+[Install]
+WantedBy=multi-user.target
+#***************************************
+
+enable the service #
+systemctl enable doorbell.service
+
+systemctl stop doorbell.service
+
+set the time zone
