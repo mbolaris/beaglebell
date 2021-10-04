@@ -1,3 +1,15 @@
+#Add a user
+sudo adduser mbolaris
+
+#Get the source
+mkdir ~/git
+git clone https://github.com/mbolaris/beaglebell.git
+
+#install the app
+cd ~/git/beaglebell
+npm install
+
+
 fix permissions to /dev/ttyUSB0
 
 copy /lib/udev/rules.d/50-udev-default.rules to /etc/udev/rules.d/50-udev-default.rules 
